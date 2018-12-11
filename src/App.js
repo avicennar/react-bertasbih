@@ -1,28 +1,65 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import HeaderBertasbih from './components/HeaderBertasbih';
+import LoginBertasbih from './components/LoginBertasbih';
+import HomeBertasbih from './components/HomeBertasbih';
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Cookies from 'universal-cookie';
+import { withRouter } from 'react-router-dom';
+import { keepLogin, cookieChecked } from './actions';
+import RegisterBertasbih from './components/RegisterBertasbih';
+import PopokListBertasbih from './components/PopokListBertasbih';
+import ManagePopokBertasbih from './components/ManagePopokBertasbih';
+import PopokDetail from './components/PopokDetail';
+import Cart from './components/Cart';
+
+
+const cookies = new Cookies();
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+  state = { content: 'Ini Content' }
+
+  componentDidMount() {
+      const username = cookies.get('Ferguso');
+      if(username !== undefined) {
+          this.props.keepLogin(username);
+      }
+      else {
+        this.props.cookieChecked();
+      }
   }
+
+  onBtnOKClick = () => {
+    this.setState({ content: 'any content here?' })
+  }
+
+  render() {
+    if (this.props.cookie) {
+      return (
+        <div>
+          <HeaderBertasbih navBrand={"MALAKDUIT.COM"} />
+          <div>
+            <Route path="/" component={HomeBertasbih} />
+            <Route path="/login" component={LoginBertasbih} />
+            <Route path="/register" component={RegisterBertasbih} />
+            <Route path="/popoklist" component={PopokListBertasbih} />
+            <Route path="/popokdetail" component={PopokDetail} />
+            <Route path="/managepopok" component={ManagePopokBertasbih} />
+            <Route path="/cart" component={Cart}/>
+          </div>
+        </div>
+      )  
+    } 
+    else {    
+    return (<div>
+              <center><h1>Loading...</h1></center>
+          </div>);
+    }
+  } 
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return { cookie: state.auth.cookie }
+}
+
+export default withRouter(connect(mapStateToProps, { keepLogin, cookieChecked })(App));
