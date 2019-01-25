@@ -3,7 +3,7 @@ import AuthReducer from './AuthReducer';
 import SelectPopokReducer from './SelectPopokReducer';
 
 export default combineReducers({
-    pikachu: () => 'Malakduit.com',
+    pikachu: () => 'MALAKDUIT.COM',
     auth: AuthReducer,
     selectedPopok: SelectPopokReducer
 });

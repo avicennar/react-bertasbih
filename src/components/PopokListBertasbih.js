@@ -50,7 +50,7 @@ class PopokListBertasbih extends Component {
             total -= size;
 
             return (
-                <PopokItemBertasbih size={size} popok={item} />
+                <PopokItemBertasbih size={size} popok={item} key={item.id} />
             )
         })
         return listJSXPopok;

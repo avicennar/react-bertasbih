@@ -40,8 +40,8 @@ class LoginBertasbih extends Component {
     render() {
         if(this.props.username === "") {
             return (
-                <div>
-                    <Form style={{ margin: "0 auto", paddingTop: "50px"}} className="col-3">
+                <div className='bodyRegister'>
+                    <Form style={{ margin: "0 auto", paddingTop: "50px"}} className="col-4">
                         <FormGroup>
                             <Label for="exampleUsername">Username</Label>
                             <Input type="text" name="username" ref="username" innerRef="tbUsername" id="exampleUsername" placeholder="Username" />
@@ -59,6 +59,7 @@ class LoginBertasbih extends Component {
         
         return <Redirect to="/" />
     }
+    
 }
 
 const mapStateToProps = (state) => {

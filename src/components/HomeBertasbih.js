@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Carousel from './Carousel';
 
 class HomeBertasbih extends Component {
     state = { listPopok: [] }
@@ -38,7 +39,8 @@ class HomeBertasbih extends Component {
         return(
             <div>
                 <center>
-                <h1>Homepage</h1>
+                    <h1>{this.props.pikachu}</h1>
+                <Carousel />
                 </center>
             </div>
         );
@@ -46,10 +48,10 @@ class HomeBertasbih extends Component {
         return(
             <div>
                 <center>
-                <div>
-                {/* <p>{this.renderListPopok()}</p> */}
-                </div>
-                <h2>{this.props.pikachu}</h2>
+                    <div>
+                        <h1>{this.props.pikachu}</h1>
+                    </div>
+                <Carousel />
                 </center>
             </div>
         )

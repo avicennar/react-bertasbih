@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import queryString from 'query-string';
 import { select_popok } from '../actions';
-import { Input, Button } from 'reactstrap';
 
 class PopokDetail extends Component {
 
@@ -19,39 +18,52 @@ class PopokDetail extends Component {
                 console.log(err)
             })
         }
+    
+    onBtnAddToCartClick = () => {
+        var { id, nama, harga, img } = this.props.popok;
+        var quantity = parseInt(this.refs.tbQuantity.value);
 
-        onPopokClick = () => {
-            this.props.select_popok(this.props.popok)
-        } 
-      
-        onCartBtn = () => {
-            var idproduk = this.props.popok.id
-            var nama = this.props.popok.nama
-            var img = this.props.popok.img
-            var harga = this.props.popok.harga
-            var qty = this.refs.qty.refs.innerqty.value
-          
-            axios.post('http://localhost:1997/cart' , {
-            
-                        
-                        id_produk : idproduk,
-                        username : this.props.username,
-                        nama_produk : nama,
-                        img : img,
-                        harga_produk : harga,
-                        kuantitas : qty,
-                        total : harga*qty,
-                        id_order : 1
-                    }).then((res) => {
-                        console.log(res)
-                        alert('Produk berhasil dimasukan ke Keranjang')
-                        this.props.tambahCart() 
-                    }).catch((err) => {
-                        console.log(err)
-                    })
-                    }  
+        axios.get('http://localhost:1997/cart', {
+            params: {
+                username: this.props.username,
+                popokId: id
+            }
+        }).then((res) => {
+            if(res.data.length > 0) {
+                axios.put('http://localhost:1997/cart/' + res.data[0].id, {
+                    username: this.props.username,
+                    popokId: id,
+                    harga,
+                    quantity,
+                    nama,
+                    img
+                }).then((res) => {
+                    console.log(res)
+                    alert('Edit Cart Sukses!')
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+            else {
+                axios.post('http://localhost:1997/cart', {
+                    username: this.props.username,
+                    popokId: id,
+                    harga,
+                    quantity,
+                    nama,
+                    img
+                }).then((res) => {
+                    console.log(res)
+                    alert('berhasil menambahkan ke dalam cart!')
+                }).catch((err) => {
+                    console.log(err)
+                })
 
-
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     render() {
         var { nama, harga, img, description, jenis } = this.props.popok;
@@ -74,9 +86,15 @@ class PopokDetail extends Component {
                         <div className="row">
                             <p>{description}</p>
                         </div>
-                        <div>
-                        <Input type="number" style={{ marginLeft:'20px' , width: '60px' , marginRight:'20px'}} ref='qty' innerRef = 'innerqty' defaultValue = '1' />
-                        <Button color="success" value='Add' onClick={this.onCartBtn}>Add to Cart</Button>
+                        <div className="row">
+                            <div className="col-3">
+                                <input type="number" ref="tbQuantity" defaultValue={1} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-3">
+                                <input type="button" className="btn btn-success" value="Add to Cart" onClick={this.onBtnAddToCartClick} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,7 +104,7 @@ class PopokDetail extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { popok: state.selectedPopok }
+    return { popok: state.selectedPopok, username: state.auth.username }
 }
 
 export default connect(mapStateToProps, { select_popok })(PopokDetail);

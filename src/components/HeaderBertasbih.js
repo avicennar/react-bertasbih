@@ -48,7 +48,7 @@ class HeaderBertasbih extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <Link to="/popoklist"><NavLink>Browse Popok</NavLink></Link>
+                                <Link to="/popoklist"><NavLink>List Produk</NavLink></Link>
                             </NavItem>
                             <NavItem>
                                 <Link to="/register"><NavLink>Register</NavLink></Link>
@@ -60,8 +60,9 @@ class HeaderBertasbih extends Component {
                     </Collapse>
                     </Navbar>
                 </div>
-            )
+            ) 
         }
+       
         else if(this.props.username === 'admin'){
             return (
             <div>
@@ -71,7 +72,7 @@ class HeaderBertasbih extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink href="/popoklist">Browse Produk</NavLink>
+                            <NavLink href="/popoklist">List Produk</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
@@ -83,6 +84,9 @@ class HeaderBertasbih extends Component {
                                 </DropdownItem>
                                 <DropdownItem>
                                     <Link to="/cart">Cart</Link>   
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <Link to="/history">History</Link>
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem onClick={this.onLogOutSelect}>
@@ -105,7 +109,7 @@ class HeaderBertasbih extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink href="/popoklist">Browse Produk</NavLink>
+                            <NavLink href="/popoklist">List Produk</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
@@ -114,6 +118,9 @@ class HeaderBertasbih extends Component {
                             <DropdownMenu right>
                                 <DropdownItem>
                                     <Link to="/cart">Cart</Link>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <Link to="/history">History</Link>
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem onClick={this.onLogOutSelect}>
@@ -125,8 +132,8 @@ class HeaderBertasbih extends Component {
                 </Collapse>
                 </Navbar>
             </div>
-            )
-    }
+            )  
+        }
 }
 
 const mapStateToProps = (state) => {

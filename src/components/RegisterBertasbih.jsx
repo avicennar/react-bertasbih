@@ -68,7 +68,9 @@ class RegisterBertasbih extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { username: state.auth.username, loading: state.auth.loading, error: state.auth.error };
+    return { username: state.auth.username, 
+            loading: state.auth.loading,
+            error: state.auth.error };
 }
 
 export default connect(mapStateToProps, { onUserRegister })(RegisterBertasbih);

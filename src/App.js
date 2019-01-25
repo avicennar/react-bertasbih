@@ -11,7 +11,9 @@ import RegisterBertasbih from './components/RegisterBertasbih';
 import PopokListBertasbih from './components/PopokListBertasbih';
 import ManagePopokBertasbih from './components/ManagePopokBertasbih';
 import PopokDetail from './components/PopokDetail';
-import Cart from './components/Cart';
+import CartBertasbih from './components/CartBertasbih';
+import HistoryBertasbih from './components/HistoryBertasbih';
+import Typetext from './components/Typetext';
 
 
 const cookies = new Cookies();
@@ -39,13 +41,15 @@ class App extends Component {
         <div>
           <HeaderBertasbih navBrand={"MALAKDUIT.COM"} />
           <div>
-            <Route path="/" component={HomeBertasbih} />
+            <Route exact path="/" component={HomeBertasbih} />
+            <Route exact path="/" component={Typetext} />
             <Route path="/login" component={LoginBertasbih} />
             <Route path="/register" component={RegisterBertasbih} />
             <Route path="/popoklist" component={PopokListBertasbih} />
             <Route path="/popokdetail" component={PopokDetail} />
             <Route path="/managepopok" component={ManagePopokBertasbih} />
-            <Route path="/cart" component={Cart}/>
+            <Route path="/cart" component={CartBertasbih}/>
+            <Route path="/history" component={HistoryBertasbih}/>
           </div>
         </div>
       )  

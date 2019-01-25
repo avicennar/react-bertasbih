@@ -4,12 +4,10 @@ import {
     AUTH_LOADING,
     LOGOUT,
     COOKIE_CHECKED,
-    EDIT_DATA,
-    PLUS_CART
+    
 } from '../actions/types';
 
-const INITIAL_STATE = { username: '',email: '', error: '', loading: false, cookie: false, edit : false, isiCart: 0};
-
+const INITIAL_STATE = { username: '',email: '', error: '', loading: false, cookie: false}
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case USER_LOGIN_SUCCESS :
@@ -22,10 +20,6 @@ export default (state = INITIAL_STATE, action) => {
             return { ...INITIAL_STATE, cookie: true };
         case COOKIE_CHECKED :
             return { ...INITIAL_STATE, cookie: true };
-        case EDIT_DATA :
-            return { ...state, edit : true};
-        case PLUS_CART :
-            return { ...state, isiCart : action.payload};
         default :
             return state;
     }
